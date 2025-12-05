@@ -17,10 +17,7 @@ describe('Cadastro de usuário', () => {
       userRegistrationPage.selectAdministratorOption();
       userRegistrationPage.clickRegister();
 
-      cy.get('div.alert.alert-dismissible.alert-primary a.alert-link')
-        .should('be.visible')
-        .and('contain', 'Cadastro realizado com sucesso');
-
+      cy.contains('Cadastro realizado com sucesso').should('be.visible');
       cy.location('pathname', { timeout: 10000 }).should('contain', 'admin/home');
       cy.get('h1').should('contain', 'Bem Vindo').and('contain', userData.name);
     });
