@@ -22,8 +22,20 @@ describe('Cadastro de usuário', () => {
         .and('contain', 'Cadastro realizado com sucesso');
 
       cy.location('pathname', { timeout: 10000 }).should('contain', 'admin/home');
-
       cy.get('h1').should('contain', 'Bem Vindo').and('contain', userData.name);
+    });
+  });
+
+  it('CT02 - Não deve cadastrar usuário sem e-email', () => {
+    cy.fixture('web/user').then((userData) => {
+      loginPage.clickRegister();
+      userRegistrationPage.typeName(userData.name);
+      userRegistrationPage.typePassword(userData.password);
+      userRegistrationPage.clickRegister();
+
+      cy.contains('Email é obrigatório').should('be.visible');
+      cy.location('pathname').should('contain', 'cadastrarusuarios');
+      cy.get('.form h2').should('contain', 'Cadastro');
     });
   });
 });
