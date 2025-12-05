@@ -1,4 +1,4 @@
-import BasePage from './BasePage';
+import { BasePage } from './BasePage';
 
 class UserRegistrationPage extends BasePage {
   selectors = {
