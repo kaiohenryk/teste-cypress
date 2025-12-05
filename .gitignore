@@ -1,0 +1,15 @@
+# Node modules
+node_modules/
+
+# Cypress
+cypress/screenshots/
+cypress/videos/
+cypress/results/ 
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE/Editor
+.vscode/
