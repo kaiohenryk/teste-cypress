@@ -1,7 +1,7 @@
 const api = Cypress.env('apiUrl');
 
 Cypress.Commands.add('createUserAPI', (user) => {
-  cy.request('POST', `${api}/usuarios`, {
+  cy.api('POST', `${api}/usuarios`, {
     nome: user.name,
     email: user.email,
     password: user.password,
@@ -13,7 +13,7 @@ Cypress.Commands.add('createUserAPI', (user) => {
 });
 
 Cypress.Commands.add('deleteUserAPI', (userId) => {
-  cy.request({
+  cy.api({
     method: 'DELETE',
     url: `${api}/usuarios/${userId}`,
     failOnStatusCode: false,
