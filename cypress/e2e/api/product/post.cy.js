@@ -13,13 +13,13 @@ describe('POST /produtos', () => {
 
       cy.fixture('api/product').then((product) => {
         productData = product;
-      });
 
-      cy.createUserAPI(userData).then((id) => {
-        userId = id;
+        cy.createUserAPI(userData).then((id) => {
+          userId = id;
 
-        cy.loginAPI(userData).then((authorization) => {
-          token = authorization;
+          cy.loginAPI(userData).then((authorization) => {
+            token = authorization;
+          });
         });
       });
     });

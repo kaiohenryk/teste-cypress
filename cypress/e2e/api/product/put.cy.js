@@ -14,20 +14,20 @@ describe('POST /produtos', () => {
 
       cy.fixture('api/product').then((product) => {
         productData = product;
-      });
 
-      cy.fixture('api/update-product').then((product) => {
-        updateProductData = product;
-      });
+        cy.fixture('api/update-product').then((product) => {
+          updateProductData = product;
 
-      cy.createUserAPI(userData).then((id) => {
-        userId = id;
+          cy.createUserAPI(userData).then((id) => {
+            userId = id;
 
-        cy.loginAPI(userData).then((authorization) => {
-          token = authorization;
+            cy.loginAPI(userData).then((authorization) => {
+              token = authorization;
 
-          cy.registerProduct(token, productData).then((id) => {
-            productId = id;
+              cy.registerProduct(token, productData).then((id) => {
+                productId = id;
+              });
+            });
           });
         });
       });
