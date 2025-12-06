@@ -43,3 +43,16 @@ Cypress.Commands.add('loginAPI', (login) => {
       return response.body.authorization;
     });
 });
+
+Cypress.Commands.add('deletarProductAPI', (token, productId) => {
+  cy.api({
+    method: 'DELETE',
+    url: `${api}/produtos/${productId}`,
+    headers: {
+      Authorization: token,
+    },
+    failOnStatusCode: false,
+  }).then((response) => {
+    expect(response.status).to.eq(200);
+  });
+});

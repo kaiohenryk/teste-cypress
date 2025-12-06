@@ -5,6 +5,7 @@ describe('API /produtos', () => {
   let token;
   let userData;
   let productData;
+  let productId;
 
   before(() => {
     cy.fixture('api/user').then((user) => {
@@ -41,10 +42,13 @@ describe('API /produtos', () => {
       expect(response.status).to.eq(201);
       expect(response.body.message).to.eq('Cadastro realizado com sucesso');
       expect(response.body._id).to.not.be.empty;
+
+      productId = response.body._id;
     });
   });
 
   after(() => {
+    cy.deletarProductAPI(token, productId);
     cy.deleteUserAPI(userId);
   });
 });
