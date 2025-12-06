@@ -54,7 +54,7 @@ describe('POST /produtos', () => {
   });
 
   after(() => {
-    cy.deleteProductAPI(token, productId);
-    cy.deleteUserAPI(userId);
+    if (productId) cy.deleteProductAPI(token, productId);
+    if (userId) cy.deleteUserAPI(userId);
   });
 });
