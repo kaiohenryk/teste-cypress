@@ -1,4 +1,4 @@
-describe('API /produtos', () => {
+describe('POST /produtos', () => {
   const api = Cypress.env('apiUrl');
 
   let userId;
