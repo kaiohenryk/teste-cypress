@@ -2,15 +2,20 @@ import loginPage from '../../page/LoginPage';
 
 describe('Login', () => {
   let userId;
-  let userData;
+  let apiUserData;
+  let webLoginData;
 
   before(() => {
-    return cy.fixture('api/user').then((data) => {
-      userData = data;
+    cy.fixture('api/user').then((data) => {
+      apiUserData = data;
 
-      return cy.createUserAPI(userData).then((id) => {
+      return cy.createUserAPI(apiUserData).then((id) => {
         userId = id;
       });
+    });
+
+    cy.fixture('web/login').then((data) => {
+      webLoginData = data;
     });
   });
 
@@ -18,14 +23,18 @@ describe('Login', () => {
     cy.visit('/');
   });
   it('CT01 - Deve realizar login com sucesso', () => {
-    cy.fixture('web/login').then((loginData) => {
-      loginPage.typeEmail(loginData.email);
-      loginPage.typePassword(loginData.password);
-      loginPage.clickEnter();
+    loginPage.typeEmail(webLoginData.email);
+    loginPage.typePassword(webLoginData.password);
+    loginPage.clickEnter();
 
-      cy.location('pathname').should('contain', 'admin/home');
-      cy.get('h1').should('contain', 'Bem Vindo').and('contain', loginData.name);
-    });
+    // prettier-ignore
+    cy.location('pathname')
+      .should('contain', 'admin/home');
+
+    cy.get('h1')
+      .should('be.visible')
+      .and('contain', 'Bem Vindo')
+      .and('contain', webLoginData.name);
   });
 
   after(() => {
