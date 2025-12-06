@@ -5,6 +5,7 @@ describe('POST /produtos', () => {
   let token;
   let userData;
   let productData;
+  let updateProductData;
   let productId;
 
   before(() => {
@@ -15,35 +16,40 @@ describe('POST /produtos', () => {
         productData = product;
       });
 
+      cy.fixture('api/update-product').then((product) => {
+        updateProductData = product;
+      });
+
       cy.createUserAPI(userData).then((id) => {
         userId = id;
 
         cy.loginAPI(userData).then((authorization) => {
           token = authorization;
+
+          cy.registerProduct(token, productData).then((id) => {
+            productId = id;
+          });
         });
       });
     });
   });
-  it('CT01 - Deve cadastrar produto com sucesso', () => {
+  it('CT01 - Atualizar produto com sucesso', () => {
     cy.api({
-      method: 'POST',
-      url: `${api}/produtos`,
+      method: 'PUT',
+      url: `${api}/produtos/${productId}`,
       body: {
-        nome: productData.name,
-        preco: productData.price,
-        descricao: productData.description,
-        quantidade: productData.amount,
+        nome: updateProductData.name,
+        preco: updateProductData.price,
+        descricao: updateProductData.description,
+        quantidade: updateProductData.amount,
       },
       headers: {
         Authorization: token,
         'Content-Type': 'application/json',
       },
     }).then((response) => {
-      expect(response.status).to.eq(201);
-      expect(response.body.message).to.eq('Cadastro realizado com sucesso');
-      expect(response.body._id).to.not.be.empty;
-
-      productId = response.body._id;
+      expect(response.status).to.eq(200);
+      expect(response.body.message).to.eq('Registro alterado com sucesso');
     });
   });
 

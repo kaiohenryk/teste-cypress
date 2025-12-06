@@ -44,7 +44,7 @@ Cypress.Commands.add('loginAPI', (login) => {
     });
 });
 
-Cypress.Commands.add('deletarProductAPI', (token, productId) => {
+Cypress.Commands.add('deleteProductAPI', (token, productId) => {
   cy.api({
     method: 'DELETE',
     url: `${api}/produtos/${productId}`,
@@ -54,5 +54,25 @@ Cypress.Commands.add('deletarProductAPI', (token, productId) => {
     failOnStatusCode: false,
   }).then((response) => {
     expect(response.status).to.eq(200);
+  });
+});
+
+Cypress.Commands.add('registerProduct', (token, product) => {
+  cy.api({
+    method: 'POST',
+    url: `${api}/produtos`,
+    body: {
+      nome: product.name,
+      preco: product.price,
+      descricao: product.description,
+      quantidade: product.amount,
+    },
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    },
+  }).then((response) => {
+    expect(response.status).to.eq(201);
+    return response.body._id;
   });
 });
