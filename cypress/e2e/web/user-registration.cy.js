@@ -35,7 +35,7 @@ describe('Cadastro de usuário', () => {
 
     cy.get('h1')
       .should('be.visible')
-      .should('contain', 'Bem Vindo')
+      .and('contain', 'Bem Vindo')
       .and('contain', webUserData.name);
   });
 

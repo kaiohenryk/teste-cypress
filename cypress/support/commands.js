@@ -1,11 +1,15 @@
 const api = Cypress.env('apiUrl');
 
 Cypress.Commands.add('createUserAPI', (user) => {
-  cy.api('POST', `${api}/usuarios`, {
-    nome: user.name,
-    email: user.email,
-    password: user.password,
-    administrador: 'true',
+  cy.api({
+    method: 'POST',
+    url: `${api}/usuarios`,
+    body: {
+      nome: user.name,
+      email: user.email,
+      password: user.password,
+      administrador: 'true',
+    },
   }).then((response) => {
     expect(response.status).to.eq(201);
     return response.body._id;
