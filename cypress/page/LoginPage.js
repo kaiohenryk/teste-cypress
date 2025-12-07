@@ -8,6 +8,10 @@ class LoginPage extends BasePage {
     register: '[data-testid="cadastrar"]',
   };
 
+  goToLoginPage() {
+    cy.visit('/');
+  }
+
   typeEmail(email) {
     this.type(this.selectors.email, email);
   }

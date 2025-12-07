@@ -20,7 +20,7 @@ describe('Login', () => {
   });
 
   beforeEach(() => {
-    cy.visit('/');
+    loginPage.goToLoginPage();
   });
   it('CT01 - Deve realizar login com sucesso', () => {
     loginPage.typeEmail(webLoginData.email);

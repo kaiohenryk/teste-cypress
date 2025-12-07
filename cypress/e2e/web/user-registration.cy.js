@@ -5,13 +5,13 @@ describe('Cadastro de usuário', () => {
   let webUserData;
 
   before(() => {
-    cy.fixture('api/user').then((data) => {
+    cy.fixture('web/user').then((data) => {
       webUserData = data;
     });
   });
 
   beforeEach(() => {
-    cy.visit('/');
+    loginPage.goToLoginPage();
   });
 
   it('CT01 - Deve cadastrar usuário administrador com sucesso', () => {
@@ -47,15 +47,15 @@ describe('Cadastro de usuário', () => {
 
     // prettier-ignore
     cy.contains('Email é obrigatório')
-        .should('be.visible');
+      .should('be.visible');
 
     // prettier-ignore
     cy.location('pathname')
-        .should('contain', 'cadastrarusuarios');
+      .should('contain', 'cadastrarusuarios');
 
     // prettier-ignore
     cy.get('.form h2')
-        .should('be.visible')
-        .and('contain', 'Cadastro');
+      .should('be.visible')
+      .and('contain', 'Cadastro');
   });
 });
