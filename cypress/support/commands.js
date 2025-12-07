@@ -71,6 +71,7 @@ Cypress.Commands.add('registerProduct', (token, product) => {
       Authorization: token,
       'Content-Type': 'application/json',
     },
+    failOnStatusCode: false,
   }).then((response) => {
     expect(response.status).to.eq(201);
     return response.body._id;

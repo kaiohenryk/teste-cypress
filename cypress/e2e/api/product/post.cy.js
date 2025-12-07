@@ -38,6 +38,7 @@ describe('POST /produtos', () => {
         Authorization: token,
         'Content-Type': 'application/json',
       },
+      failOnStatusCode: false,
     }).then((response) => {
       expect(response.status).to.eq(201);
       expect(response.body.message).to.eq('Cadastro realizado com sucesso');

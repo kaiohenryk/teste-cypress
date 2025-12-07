@@ -47,6 +47,7 @@ describe('POST /produtos', () => {
         Authorization: token,
         'Content-Type': 'application/json',
       },
+      failOnStatusCode: false,
     }).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body.message).to.eq('Registro alterado com sucesso');
