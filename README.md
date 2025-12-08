@@ -26,8 +26,8 @@ customizados para uma estrutura escalável e de fácil manutenção.
     │   └── web/
     │
     ├── fixtures/
-    │   ├── api/
-    │   └── web/
+    │   ├── product.json
+    │   └── user.json
     │
     ├── page/
     │   ├── BasePage.js
