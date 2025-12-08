@@ -3,6 +3,8 @@ import userRegistrationPage from '../../page/UserRegistrationPage';
 
 describe('Cadastro de usuário', () => {
   let userData;
+  let randomEmail;
+  let userID;
 
   before(() => {
     cy.fixture('user').then((data) => {
@@ -15,7 +17,7 @@ describe('Cadastro de usuário', () => {
   });
 
   it('CT01 - Deve cadastrar usuário administrador com sucesso', () => {
-    const randomEmail = `teste+${Date.now()}@gmail.com`;
+    randomEmail = `teste+${Date.now()}@gmail.com`;
 
     loginPage.clickRegister();
     userRegistrationPage.typeName(userData.name);
@@ -57,5 +59,13 @@ describe('Cadastro de usuário', () => {
     cy.get('.form h2')
       .should('be.visible')
       .and('contain', 'Cadastro');
+  });
+
+  after(() => {
+    cy.searchUserByEmail(randomEmail).then((id) => {
+      userID = id;
+
+      if (userID) cy.deleteUserAPI(userID);
+    });
   });
 });

@@ -77,3 +77,20 @@ Cypress.Commands.add('registerProduct', (token, product) => {
     return response.body._id;
   });
 });
+
+Cypress.Commands.add('searchUserByEmail', (email) => {
+  cy.request({
+    method: 'GET',
+    url: `${api}/usuarios`,
+    failOnStatusCode: false,
+  }).then((response) => {
+    expect(response.status).to.eq(200);
+    const user = response.body.usuarios.find((u) => u.email === email);
+
+    if (!user) {
+      throw new Error(`Usuário com email ${email} não encontrado`);
+    }
+
+    return cy.wrap(user._id);
+  });
+});
