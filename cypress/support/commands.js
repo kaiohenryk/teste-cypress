@@ -23,25 +23,23 @@ Cypress.Commands.add('deleteUserAPI', (userId) => {
     url: `${api}/usuarios/${userId}`,
     failOnStatusCode: false,
   }).then((response) => {
-    expect([200, 204]).to.include(response.status);
+    expect(response.status).to.eq(200);
   });
 });
 
 Cypress.Commands.add('loginAPI', (login) => {
-  return cy
-    .api({
-      method: 'POST',
-      url: `${api}/login`,
-      body: {
-        email: login.email,
-        password: login.password,
-      },
-      failOnStatusCode: false,
-    })
-    .then((response) => {
-      expect(response.status).to.eq(200);
-      return response.body.authorization;
-    });
+  cy.api({
+    method: 'POST',
+    url: `${api}/login`,
+    body: {
+      email: login.email,
+      password: login.password,
+    },
+    failOnStatusCode: false,
+  }).then((response) => {
+    expect(response.status).to.eq(200);
+    return response.body.authorization;
+  });
 });
 
 Cypress.Commands.add('deleteProductAPI', (token, productId) => {
@@ -79,18 +77,16 @@ Cypress.Commands.add('registerProduct', (token, product) => {
 });
 
 Cypress.Commands.add('searchUserByEmail', (email) => {
-  cy.request({
+  cy.api({
     method: 'GET',
     url: `${api}/usuarios`,
     failOnStatusCode: false,
   }).then((response) => {
     expect(response.status).to.eq(200);
     const user = response.body.usuarios.find((u) => u.email === email);
-
     if (!user) {
       throw new Error(`Usuário com email ${email} não encontrado`);
     }
-
     return cy.wrap(user._id);
   });
 });
