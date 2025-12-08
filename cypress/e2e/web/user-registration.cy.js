@@ -2,11 +2,11 @@ import loginPage from '../../page/LoginPage';
 import userRegistrationPage from '../../page/UserRegistrationPage';
 
 describe('Cadastro de usuário', () => {
-  let webUserData;
+  let userData;
 
   before(() => {
-    cy.fixture('web/user').then((data) => {
-      webUserData = data;
+    cy.fixture('user').then((data) => {
+      userData = data;
     });
   });
 
@@ -18,9 +18,9 @@ describe('Cadastro de usuário', () => {
     const randomEmail = `teste+${Date.now()}@gmail.com`;
 
     loginPage.clickRegister();
-    userRegistrationPage.typeName(webUserData.name);
+    userRegistrationPage.typeName(userData.name);
     userRegistrationPage.typeEmail(randomEmail);
-    userRegistrationPage.typePassword(webUserData.password);
+    userRegistrationPage.typePassword(userData.password);
     userRegistrationPage.selectAdministratorOption();
     userRegistrationPage.clickRegister();
 
@@ -36,13 +36,13 @@ describe('Cadastro de usuário', () => {
     cy.get('h1')
       .should('be.visible')
       .and('contain', 'Bem Vindo')
-      .and('contain', webUserData.name);
+      .and('contain', userData.name);
   });
 
   it('CT02 - Não deve cadastrar usuário sem e-email', () => {
     loginPage.clickRegister();
-    userRegistrationPage.typeName(webUserData.name);
-    userRegistrationPage.typePassword(webUserData.password);
+    userRegistrationPage.typeName(userData.name);
+    userRegistrationPage.typePassword(userData.password);
     userRegistrationPage.clickRegister();
 
     // prettier-ignore

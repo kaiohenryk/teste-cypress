@@ -2,20 +2,15 @@ import loginPage from '../../page/LoginPage';
 
 describe('Login', () => {
   let userId;
-  let apiUserData;
-  let webLoginData;
+  let userData;
 
   before(() => {
-    cy.fixture('api/user').then((data) => {
-      apiUserData = data;
+    cy.fixture('user').then((data) => {
+      userData = data;
 
-      return cy.createUserAPI(apiUserData).then((id) => {
+      return cy.createUserAPI(userData).then((id) => {
         userId = id;
       });
-    });
-
-    cy.fixture('web/login').then((data) => {
-      webLoginData = data;
     });
   });
 
@@ -23,8 +18,8 @@ describe('Login', () => {
     loginPage.goToLoginPage();
   });
   it('CT01 - Deve realizar login com sucesso', () => {
-    loginPage.typeEmail(webLoginData.email);
-    loginPage.typePassword(webLoginData.password);
+    loginPage.typeEmail(userData.email);
+    loginPage.typePassword(userData.password);
     loginPage.clickEnter();
 
     // prettier-ignore
@@ -34,10 +29,10 @@ describe('Login', () => {
     cy.get('h1')
       .should('be.visible')
       .and('contain', 'Bem Vindo')
-      .and('contain', webLoginData.name);
+      .and('contain', userData.name);
   });
 
   after(() => {
-    cy.deleteUserAPI(userId);
+    if (userId) cy.deleteUserAPI(userId);
   });
 });

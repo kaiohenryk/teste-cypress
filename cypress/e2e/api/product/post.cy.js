@@ -8,7 +8,7 @@ describe('POST /produtos', () => {
   let productId;
 
   before(() => {
-    cy.fixture('api/user').then((user) => {
+    cy.fixture('user').then((user) => {
       userData = user;
 
       cy.fixture('product').then((product) => {
