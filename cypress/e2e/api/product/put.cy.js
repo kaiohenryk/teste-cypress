@@ -16,8 +16,6 @@ describe('POST /produtos', () => {
         createProductData = product.create;
         updateProductData = product.update;
 
-        //cy.fixture('api/update-product').then((product) => {
-
         cy.createUserAPI(userData).then((id) => {
           userId = id;
 
@@ -28,7 +26,6 @@ describe('POST /produtos', () => {
               productId = id;
             });
           });
-          // });
         });
       });
     });
