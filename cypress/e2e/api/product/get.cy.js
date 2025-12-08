@@ -1,6 +1,6 @@
 describe('GET /produtos', () => {
   const api = Cypress.env('apiUrl');
-  it('CT01 - Deve retornar erro ao buscar produto inexistente', () => {
+  it('CT01 - Retornar erro ao buscar produto inexistente', () => {
     const productId = 'aB2657eRgt265ty8';
     cy.api({
       method: 'GET',

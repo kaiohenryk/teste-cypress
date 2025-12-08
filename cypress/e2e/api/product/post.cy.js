@@ -24,7 +24,7 @@ describe('POST /produtos', () => {
       });
     });
   });
-  it('CT01 - Deve cadastrar produto com sucesso', () => {
+  it('CT01 - Cadastrar produto com sucesso', () => {
     cy.api({
       method: 'POST',
       url: `${api}/produtos`,

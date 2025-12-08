@@ -17,7 +17,7 @@ describe('Login', () => {
   beforeEach(() => {
     loginPage.goToLoginPage();
   });
-  it('CT01 - Deve realizar login com sucesso', () => {
+  it('CT01 - Realizar login com sucesso', () => {
     loginPage.typeEmail(userData.email);
     loginPage.typePassword(userData.password);
     loginPage.clickEnter();

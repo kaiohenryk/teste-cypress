@@ -16,7 +16,7 @@ describe('Cadastro de usuário', () => {
     loginPage.goToLoginPage();
   });
 
-  it('CT01 - Deve cadastrar usuário administrador com sucesso', () => {
+  it('CT01 - Cadastrar usuário administrador com sucesso', () => {
     randomEmail = `teste+${Date.now()}@gmail.com`;
 
     loginPage.clickRegister();
@@ -41,7 +41,7 @@ describe('Cadastro de usuário', () => {
       .and('contain', userData.name);
   });
 
-  it('CT02 - Não deve cadastrar usuário sem e-email', () => {
+  it('CT02 - Não permitir cadastrar usuário sem e-email', () => {
     loginPage.clickRegister();
     userRegistrationPage.typeName(userData.name);
     userRegistrationPage.typePassword(userData.password);
