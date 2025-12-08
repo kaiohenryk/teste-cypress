@@ -11,8 +11,8 @@ describe('POST /produtos', () => {
     cy.fixture('api/user').then((user) => {
       userData = user;
 
-      cy.fixture('api/product').then((product) => {
-        productData = product;
+      cy.fixture('product').then((product) => {
+        productData = product.create;
 
         cy.createUserAPI(userData).then((id) => {
           userId = id;
